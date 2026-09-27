@@ -1,0 +1,582 @@
+AI CHAT WITH QWEN
+=================
+
+Project Type:
+Local AI Chat Application
+
+Project Location:
+E:\React\AI-Chat-With-Qwen
+
+
+1. PROJECT OVERVIEW
+===================
+
+This project is a local AI chat application.
+
+The application allows users to:
+- Chat with a local AI model
+- Have multiple conversations
+- Store conversations locally
+- Rename conversations
+- Delete conversations
+- Stop AI generation
+- Regenerate AI responses
+- Stream AI responses
+- Use Markdown formatting
+- Display code blocks
+- Use the application on desktop and mobile
+
+
+2. PROJECT ARCHITECTURE
+=======================
+
+Next.js Frontend
+       |
+       v
+FastAPI Backend
+       |
+       +------ SQLite Database
+       |
+       +------ Ollama
+                  |
+                  v
+              Qwen 3.5 9B
+
+
+3. SYSTEM REQUIREMENTS
+======================
+
+Operating System:
+- Windows
+
+RAM:
+- 16 GB recommended
+
+GPU:
+- Intel Arc A750
+- Ollama GPU acceleration supported
+
+CPU:
+- Modern 64-bit CPU
+
+Internet:
+- Required initially for downloading packages and AI model
+- Not required for normal local AI chat after everything is installed
+
+
+4. SOFTWARE REQUIREMENTS
+========================
+
+Node.js:
+- Node.js 24.x
+
+npm:
+- npm 11.x
+
+Python:
+- Python 3.13.x
+
+Git:
+- Git 2.50.x or compatible
+
+Next.js:
+- Next.js 16.3.6
+
+FastAPI:
+- FastAPI
+
+Uvicorn:
+- Uvicorn
+
+Ollama:
+- Ollama 0.34.4
+
+Database:
+- SQLite
+
+
+5. FRONTEND
+===========
+
+Location:
+E:\React\AI-Chat-With-Qwen\frontend
+
+Technology:
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- React Markdown
+- remark-gfm
+
+Main frontend features:
+- Chat interface
+- Multiple conversations
+- Responsive mobile sidebar
+- Markdown rendering
+- Code block rendering
+- Auto-scroll
+- Stop generation
+- Regenerate response
+- Rename conversation
+- Delete conversation
+- Error message display
+- Local AI information
+
+
+6. FRONTEND PACKAGES
+====================
+
+Main packages used:
+
+- next
+- react
+- react-dom
+- react-markdown
+- remark-gfm
+
+Development tools:
+
+- TypeScript
+- Tailwind CSS
+- ESLint
+
+
+7. BACKEND
+==========
+
+Location:
+E:\React\AI-Chat-With-Qwen\backend
+
+Technology:
+- Python
+- FastAPI
+- Uvicorn
+- SQLite
+- aiosqlite
+- httpx
+- Pydantic
+
+
+8. PYTHON PACKAGES
+==================
+
+Required Python packages:
+
+fastapi
+uvicorn
+aiosqlite
+httpx
+pydantic
+
+
+9. DATABASE
+===========
+
+Database:
+SQLite
+
+Database file:
+
+E:\React\AI-Chat-With-Qwen\backend\data\chat.db
+
+Tables:
+
+conversations
+messages
+
+
+conversations table:
+
+- id
+- title
+- created_at
+
+
+messages table:
+
+- id
+- conversation_id
+- role
+- content
+- created_at
+
+
+10. AI MODEL
+============
+
+AI Runtime:
+Ollama
+
+Custom Ollama model name:
+
+my-qwen-chat
+
+
+Base Model:
+
+hf.co/DavidAU/Qwen3.5-9B-The-Defiant-Fable-Uncensored-Heretic-NEO-IMATRIX-MAX-MTP-GGUF:Q4_K_M
+
+
+Model Format:
+
+GGUF
+
+
+Quantization:
+
+Q4_K_M
+
+
+Context:
+
+4096
+
+
+Temperature:
+
+0.8
+
+
+11. OLLAMA MODEL CONFIGURATION
+==============================
+
+Modelfile:
+
+FROM hf.co/DavidAU/Qwen3.5-9B-The-Defiant-Fable-Uncensored-Heretic-NEO-IMATRIX-MAX-MTP-GGUF:Q4_K_M
+
+PARAMETER temperature 0.8
+PARAMETER num_ctx 4096
+
+SYSTEM """
+You are a helpful conversational AI assistant.
+
+You can communicate naturally in both English and Bangla.
+Always respond in the same language as the user unless they request another language.
+
+Keep responses natural and reasonably concise.
+Do not reveal internal reasoning or hidden thinking.
+"""
+
+
+12. OLLAMA MODEL CREATION
+========================
+
+Modelfile location:
+
+E:\React\Modelfile
+
+Create model with:
+
+ollama create my-qwen-chat -f "E:\React\Modelfile"
+
+
+13. BACKEND CONFIGURATION
+=========================
+
+Ollama API:
+
+http://localhost:11434/api/chat
+
+
+FastAPI backend:
+
+http://127.0.0.1:8000
+
+
+Frontend:
+
+http://localhost:3000
+
+or
+
+http://127.0.0.1:3000
+
+
+14. API FEATURES
+================
+
+POST /api/chat
+
+Used for:
+- Normal chat
+- Streaming AI response
+- Regenerate response
+
+
+POST /api/conversations
+
+Used for:
+- Creating a new conversation
+
+
+GET /api/conversations
+
+Used for:
+- Loading conversation history
+
+
+GET /api/conversations/{id}/messages
+
+Used for:
+- Loading messages for a conversation
+
+
+PUT /api/conversations/{id}
+
+Used for:
+- Renaming a conversation
+
+
+DELETE /api/conversations/{id}
+
+Used for:
+- Deleting a conversation
+
+
+15. CHAT FEATURES
+=================
+
+Normal message:
+- User sends message
+- Frontend sends conversation history to FastAPI
+- FastAPI sends request to Ollama
+- Ollama generates response
+- Response is streamed to frontend
+- Completed response is saved to SQLite
+
+
+Regenerate:
+- Existing assistant response is removed
+- Latest user message is sent again
+- New AI response is generated
+- New response is saved
+
+
+Stop generation:
+- Uses AbortController
+- Stops frontend streaming request
+- Incomplete assistant response is not saved
+
+
+16. LANGUAGE SUPPORT
+====================
+
+Supported languages:
+
+- English
+- Bangla
+
+The AI is configured to respond in the same language used by the user unless another language is requested.
+
+
+17. MARKDOWN SUPPORT
+====================
+
+The frontend supports:
+
+- Headings
+- Paragraphs
+- Bold text
+- Italic text
+- Ordered lists
+- Unordered lists
+- Blockquotes
+- Inline code
+- Code blocks
+- Tables
+- Links
+
+
+18. RESPONSIVE DESIGN
+====================
+
+Desktop:
+- Sidebar
+- Chat area
+- Header
+- Input area
+
+Mobile:
+- Slide-out sidebar
+- Mobile menu button
+- Mobile close button
+- Responsive chat bubbles
+- Responsive input area
+- Responsive conversation actions
+
+
+19. CURRENT PROJECT STATUS
+==========================
+
+Completed:
+
+[✓] Next.js frontend
+[✓] FastAPI backend
+[✓] Ollama integration
+[✓] Qwen 3.5 9B local model
+[✓] SQLite database
+[✓] Multiple conversations
+[✓] Conversation persistence
+[✓] Chat titles
+[✓] Rename conversation
+[✓] Delete conversation
+[✓] Streaming response
+[✓] Stop generation
+[✓] Regenerate response
+[✓] Markdown support
+[✓] Code blocks
+[✓] Auto-scroll
+[✓] Mobile responsive UI
+[✓] Error handling
+[✓] Production build tested
+
+
+20. PRODUCTION BUILD
+====================
+
+Frontend production build command:
+
+cd "E:\React\AI-Chat-With-Qwen\frontend"
+
+npm run build
+
+
+Start production frontend:
+
+npm start
+
+
+21. DEVELOPMENT MODE
+====================
+
+Start frontend:
+
+cd "E:\React\AI-Chat-With-Qwen\frontend"
+
+npm run dev
+
+
+Start backend:
+
+cd "E:\React\AI-Chat-With-Qwen\backend"
+
+.\.venv\Scripts\activate
+
+uvicorn main:app --reload
+
+
+22. OLLAMA
+==========
+
+Check Ollama:
+
+ollama --version
+
+
+List installed models:
+
+ollama list
+
+
+Run model manually:
+
+ollama run my-qwen-chat
+
+
+23. IMPORTANT PROJECT DIRECTORIES
+=================================
+
+Project root:
+
+E:\React\AI-Chat-With-Qwen
+
+
+Frontend:
+
+E:\React\AI-Chat-With-Qwen\frontend
+
+
+Backend:
+
+E:\React\AI-Chat-With-Qwen\backend
+
+
+Backend database:
+
+E:\React\AI-Chat-With-Qwen\backend\data\chat.db
+
+
+Modelfile:
+
+E:\React\Modelfile
+
+
+24. IMPORTANT NOTES
+===================
+
+- The AI model runs locally through Ollama.
+- Chat conversations are stored locally in SQLite.
+- No external AI API is required for normal chat.
+- The application requires Ollama to be running.
+- The frontend and backend must both be running.
+- The AI model must be available in Ollama as "my-qwen-chat".
+- Do not delete backend/data/chat.db if existing conversation history needs to be preserved.
+
+
+25. BASIC STARTUP ORDER
+=======================
+
+1. Start Ollama.
+
+2. Start FastAPI backend:
+
+cd "E:\React\AI-Chat-With-Qwen\backend"
+.\.venv\Scripts\activate
+uvicorn main:app --reload
+
+3. Start Next.js frontend:
+
+cd "E:\React\AI-Chat-With-Qwen\frontend"
+npm run dev
+
+4. Open:
+
+http://localhost:3000
+
+
+26. TROUBLESHOOTING
+===================
+
+If AI does not respond:
+- Check that Ollama is running.
+- Check that "my-qwen-chat" exists.
+- Check that FastAPI is running on port 8000.
+- Check browser console for frontend errors.
+
+If frontend does not start:
+- Run npm install.
+- Check Node.js version.
+- Run npm run build to identify production build errors.
+
+If database history disappears:
+- Check that backend/data/chat.db still exists.
+
+If model is missing:
+
+ollama list
+
+Then recreate if necessary:
+
+ollama create my-qwen-chat -f "E:\React\Modelfile"
+
+
+27. PROJECT GOAL
+===============
+
+The goal of this project is to provide a private, local,
+responsive AI chat application using a locally running Qwen
+language model through Ollama.
+
+The application is designed to work without depending on
+cloud-based AI APIs for normal chat operations.

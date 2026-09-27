@@ -1,0 +1,102 @@
+# =========================
+# Node / Next.js
+# =========================
+
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+
+# =========================
+# Environment variables
+# =========================
+
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+
+# =========================
+# Python
+# =========================
+
+__pycache__/
+*.py[cod]
+*.pyo
+
+.venv/
+venv/
+env/
+ENV/
+
+.pytest_cache/
+.mypy_cache/
+
+
+# =========================
+# SQLite Database
+# =========================
+
+*.db
+*.sqlite
+*.sqlite3
+
+backend/data/
+
+
+# =========================
+# IDE / Editor
+# =========================
+
+.vscode/
+.idea/
+
+*.swp
+*.swo
+
+
+# =========================
+# OS files
+# =========================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+
+# =========================
+# Logs
+# =========================
+
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+
+# =========================
+# Local AI / Model files
+# =========================
+
+*.gguf
+*.ggml
+*.safetensors
+*.bin
+
+models/
+model/
+ollama/
+
+
+# =========================
+# Build / Cache
+# =========================
+
+.cache/
+dist/
+build/
+coverage/
