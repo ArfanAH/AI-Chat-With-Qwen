@@ -1,4 +1,10 @@
-# AI Chat With Qwen
+# AI Business Intelligence
+
+## 🌐 Live Demo
+
+[**Visit AI Business Intelligence →**](https://ai-business-intelligence-five.vercel.app/login)
+
+
 
 A local AI chat application powered by **Qwen3.5 9B**, **Ollama**, **FastAPI**, **Next.js**, and **SQLite**.
 
